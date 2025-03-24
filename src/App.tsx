@@ -9,7 +9,31 @@ export default function App() {
     "https://imgs.search.brave.com/0OSEFD-S7ULixXa0XfIKbsjjxvtxeIHgq75tAMehgE0/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL00v/TVY1QlltWTJOR1Zt/WWpFdE1HVmtNeTAw/TkdWa0xXRTBZVGd0/WW1Rek5URTJZalV3/TkRWbVhrRXlYa0Zx/Y0djQC5qcGc",
   ];
   const [index, setindex] = useState(0);
+  useEffect(() => {
+    const intervel = setInterval(() => {
+      setindex((pre) => (pre + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(intervel);
+  }, []);
 
+  const nextbtn = () => {
+    setindex((pre) => (pre + 1) % images.length);
+  };
+  const prebtn = () => {
+    setindex((pre) => (pre - 1 + images.length) % images.length);
+  };
 
-  return <div className="App"></div>;
+  return (
+    <>
+      <div className="container">
+        <button className="btn btn-success" onClick={prebtn}>
+          pre
+        </button>
+        <img src={images[index]} alt="no images" width={300} height={500} />
+        <button className="btn btn-success" onClick={nextbtn}>
+          Next
+        </button>
+      </div>
+    </>
+  );
 }
